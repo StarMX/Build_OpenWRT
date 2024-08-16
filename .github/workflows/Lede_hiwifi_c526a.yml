@@ -8,30 +8,30 @@ on:
   #手动编译
   workflow_dispatch:
     inputs:
-      WRT_BRANCH:
-        required: true
-        type: string
-      WRT_TARGET:
-        required: true
-        type: string
-      WRT_THEME:
-        required: true
-        type: string
-      WRT_NAME:
-        required: true
-        type: string
-      WRT_WIFI:
-        required: true
-        type: string
-      WRT_URL:
-        required: true
-        type: string
-      WRT_IP:
-        required: true
-        type: string
-      WRT_PW:
-        required: true
-        type: string
+      # WRT_BRANCH:
+      #   required: true
+      #   type: string
+      # WRT_TARGET:
+      #   required: true
+      #   type: string
+      # WRT_THEME:
+      #   required: true
+      #   type: string
+      # WRT_NAME:
+      #   required: true
+      #   type: string
+      # WRT_WIFI:
+      #   required: true
+      #   type: string
+      # WRT_URL:
+      #   required: true
+      #   type: string
+      # WRT_IP:
+      #   required: true
+      #   type: string
+      # WRT_PW:
+      #   required: true
+      #   type: string
       WRT_CFG:
         required: true
         default: 'true'
