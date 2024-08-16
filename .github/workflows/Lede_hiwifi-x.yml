@@ -10,7 +10,7 @@ on:
     inputs:
       WRT_BRANCH:
         required: true
-        default: 'master'
+        default: '20230609'
         type: string
       WRT_URL:
         required: true
