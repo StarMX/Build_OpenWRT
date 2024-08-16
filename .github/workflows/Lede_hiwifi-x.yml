@@ -1,0 +1,49 @@
+#CI项目名
+name: 编译Lede_hiwifi_c526a
+
+on:
+  #自动编译：每天早上4点
+  #schedule:
+    #- cron: 0 20 * * *
+  #手动编译
+  workflow_dispatch:
+    inputs:
+      WRT_BRANCH:
+        required: true
+        default: 'master'
+        type: string
+      WRT_URL:
+        required: true
+        default: 'https://github.com/coolsnowwolf/lede.git'
+        type: string
+      WRT_CFG:
+        required: true
+        default: 'false'
+        type: string
+#CI权限
+permissions: write-all
+
+#CI任务
+jobs:
+  wrt_config:
+    #调用公用编译核心WRT-CORE.yml
+    uses: ./.github/workflows/WRT-CORE.yml
+    with:
+      #编译平台，X64包含X86
+      WRT_TARGET: ipq40xx
+      #默认主题
+      WRT_THEME: opentopd
+      #默认主机名
+      WRT_NAME: HiWifi-X
+      #默认WIFI名
+      WRT_WIFI: HiWifi-X
+      #默认密码，仅作提示，修改无用
+      WRT_PW: password
+      #默认地址
+      WRT_IP: 10.1.0.1
+      #默认源码
+      WRT_URL: ${{inputs.WRT_URL}}
+      #默认分支
+      WRT_BRANCH: ${{inputs.WRT_BRANCH}}
+
+      WRT_CFG: ${{inputs.WRT_CFG}}
