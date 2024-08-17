@@ -175,14 +175,15 @@ jobs:
         if: env.WRT_CFG == 'false'
         run: |
           cd ./wrt/
-
           make download -j$(nproc)
+          find dl -size -1024c -exec ls -l {} \;
+          find dl -size -1024c -exec rm -f {} \;
 
       - name: 编译固件
         if: env.WRT_CFG == 'false'
         run: |
           cd ./wrt/
-
+          echo -e "$(($(nproc)+1)) thread compile"
           make -j$(nproc) || make -j1 V=s
 
       - name: 服务器信息
