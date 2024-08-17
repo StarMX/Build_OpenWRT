@@ -61,3 +61,7 @@ UPDATE_VERSION() {
 }
 
 UPDATE_VERSION "sing-box" "1.8.5" "0d5e6a7198c3a18491ac35807170715118df2c7b77fd02d16d7cfb5791e368ce"
+if [ -d ./feeds/packages/lang/golang ]; then
+    rm -rf ./feeds/packages/lang/golang
+    git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+fi
