@@ -13,11 +13,9 @@ sed -i "s/timezone='.*'/timezone='CST-8'/g" $CFG_FILE
 sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" $CFG_FILE
 
 if [[ $WRT_URL == *"lede"* ]]; then
-	LEDE_FILE=$(find ./package/lean/autocore/ -type f -name "index.htm")
-	#修改默认时间格式
-	sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M:%S %A")/g' $LEDE_FILE
-	#添加编译日期标识
-	sed -i "s/(\(<%=pcdata(ver.luciversion)%>\))/\1 \/ $WRT_REPO-$WRT_DATE/" $LEDE_FILE
+	# 修改主机名字，把OpenWrt-123修改你喜欢的就行（不能纯数字或者使用中文）
+	sed -i '/uci commit system/i\uci set system.@system[0].hostname='$WRT_NAME$'' package/lean/default-settings/files/zzz-default-settings
+	sed -i "s/OpenWrt /StarZ build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" ./package/lean/default-settings/files/zzz-default-settings
 	#修改默认WIFI名
 	sed -i "s/ssid=.*/ssid=$WRT_WIFI/g" ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
 elif [[ $WRT_URL == *"immortalwrt"* ]]; then
@@ -34,7 +32,7 @@ echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
 
 if [[ $WRT_URL == *"lede"* ]]; then
 	echo "CONFIG_PACKAGE_luci-app-ssr-plus=y" >> ./.config
-	echo "CONFIG_PACKAGE_luci-app-openclash=y" >> ./.config
+	# echo "CONFIG_PACKAGE_luci-app-openclash=y" >> ./.config
 elif [[ $WRT_URL == *"immortalwrt"* ]]; then
 	echo "CONFIG_PACKAGE_luci=y" >> ./.config
 	echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
